@@ -6,10 +6,32 @@
 //
 
 import SwiftUI
+import FirebaseDatabase
 
 struct testdb: View {
+    @State var message = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(message)
+                .padding()
+        }.onAppear {
+            let ref = Database.database().reference()
+            ref.child("message").getData { (error, snapshot) in
+                if let error = error {
+                    print("Error getting data \(error)")
+                }
+                else if snapshot.exists() {
+                    guard let message = snapshot.value as? String else {
+                        return
+                    }
+                    self.message = message
+                }
+                else {
+                    print("No data available")
+                }
+            }
+        }
     }
 }
 

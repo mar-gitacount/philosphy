@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
-struct SignInWithAppleButton: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+struct SignInWithAppleButton: UIViewRepresentable {
+    typealias UIViewType = ASAuthorizationAppleIDButton
 
-struct SignInWithAppleButton_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInWithAppleButton()
+    func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
+        return ASAuthorizationAppleIDButton(type: .signIn, style: .black)
     }
+
+    func updateUIView(_ uiView: ASAuthorizationAppleIDButton, context: Context) {}
 }
